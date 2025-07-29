@@ -84,7 +84,7 @@ void UMinigameTriggerComponent::Start(ACharacterBase* Character)
 	}
 	
 	ControllerOwner = Cast<ACharacter>(Character);
-	if (ControllerOwner && !bActive){
+	if (ControllerOwner && !bActive && !bCompleted){
 		if (Cast<ACharacterBig>(ControllerOwner) && Cast<ACharacterBig>(ControllerOwner)->bIsClimbing)
 		{
 			return;
