@@ -3,7 +3,6 @@
 #include "CharacterBase.h"
 
 #include "BodyTemperature.h"
-#include "ClimbComponent.h"
 #include "CustomizeComponent.h"
 #include "Engine/LocalPlayer.h"
 #include "Camera/CameraComponent.h"
@@ -369,7 +368,7 @@ void ACharacterBase::OnDeath()
 
 	bHasDied = true;
 	PushComponent->StopPushing();
-	SetLockLocation(true);
+	bSimGravityDisabled = true;
 	SetActorEnableCollision(false);
 
 	
@@ -412,7 +411,7 @@ void ACharacterBase::RespawnAtCheckpoint()
 	EnableInput(nullptr);
 	GetCharacterMovement()->GravityScale = 1.75f;
 	ResetPlayerState();
-	SetLockLocation(false);
+	bSimGravityDisabled = false;
 	SetActorEnableCollision(true);
 	SetActorLocation(NewLocation);
 }
@@ -430,7 +429,7 @@ void ACharacterBase::StartDelayedRespawn()
 
 void ACharacterBase::RespawnToLastSafeLocation()
 {
-	SetLockLocation(false);
+	bSimGravityDisabled = false;
 	SetActorEnableCollision(true);
 	SetActorLocation(LastSafeLocation, false, nullptr, ETeleportType::TeleportPhysics);
 
